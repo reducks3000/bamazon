@@ -70,11 +70,15 @@ connection.connect(err =>
                                 // Outputs summmary of user order to console
                                 console.log(`Buying ${purchaseQuantity} ${products[productID].product_name}s for ${productPrice} each for a total price of ${totalPrice}`);
                                 startOver();
-                        }
+                            }
                             
-                    );
-                }
+                        );
+                    }
+                    else {
+                        console.log('Uh oh! Not enough inventory!')
+                        startOver();
+                    };
+                });
             });
-        });
-    };
-});
+        };
+    });
