@@ -16,7 +16,7 @@ connection.connect(err =>
     console.log('Connected successfully'));
 
     // Query DB for list of all products to be printed to console as a table
-    connection.query('SELECT item_id, product_name, price FROM products', function (err, products){
+    connection.query('SELECT item_id, product_name, stock_quantity, price FROM products', function (err, products){
         if (err) throw err;
         console.table(products)
         
@@ -78,7 +78,27 @@ connection.connect(err =>
                         console.log('Uh oh! Not enough inventory!')
                         startOver();
                     };
-                });
+                    function startOver() {
+                        inquirer.prompt([
+                            {
+                                type: 'confirm',
+                                name: 'startOver',
+                                message: 'Purchase another product?'
+                            }
+                        ]).then(function(answer){
+                            if (answer.startOver === true) {
+                                buyProduct();
+                            }
+                            else {
+                                connection.end();
+                        };
+                    });
+                };
             });
-        };
-    });
+        });
+    };
+    
+    // Call main input loop
+    buyProduct();
+});
+    
