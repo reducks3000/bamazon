@@ -16,3 +16,13 @@ if (err) {
 }
 loadProducts();
 });
+
+// function to load product tables
+function loadProducts() {
+    connection.query("SELECT * FROM products", function(err, res) {
+        if (err) throw err;
+
+        console.table(res);
+    });
+}
+
